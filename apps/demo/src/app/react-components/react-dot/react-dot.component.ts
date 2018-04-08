@@ -5,8 +5,7 @@ import * as ReactDOM from 'react-dom';
 @Component({
   selector: 'app-react-dot',
   template: `
-    <ReactDot [text]="hover ? '*' + text + '*' : text">
-    </ReactDot>
+    <ReactDot [size]="size" [x]="x" [y]="y" [text]="hover ? '*' + text + '*' : text"></ReactDot>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [ 'react-renderer' ],
@@ -19,55 +18,63 @@ export class ReactDotComponent implements OnChanges {
   @Input() text: string;
 
   hover = false;
-  style: { [k: string]: any };
-  bgColor: string;
+  // style: { [k: string]: any };
+  // bgColor: string;
 
   ngOnChanges(changes: SimpleChanges) {
-    const shapeChanged = 'x' in changes || 'y' in changes || 'size' in changes;
+  //   const shapeChanged = 'x' in changes || 'y' in changes || 'size' in changes;
 
-    if (shapeChanged) {
-      this.updateStyle();
-    }
+  //   if (shapeChanged) {
+  //     this.updateStyle();
+  //   }
   }
 
-  enter() {
-    this.hover = true;
-    this.bgColor = '#ff0';
-  }
+  // enter() {
+  //   this.hover = true;
+  //   this.bgColor = '#ff0';
+  // }
 
-  leave() {
-    this.hover = false;
-    this.bgColor = undefined;
-  }
+  // leave() {
+  //   this.hover = false;
+  //   this.bgColor = undefined;
+  // }
 
-  private updateStyle() {
-    const s = this.size * 1.3;
-    this.style = {
-      width: s + 'px',
-      height: s + 'px',
-      left: (this.x) + 'px',
-      top: (this.y) + 'px',
-      borderRadius: (s / 2) + 'px',
-      lineHeight: (s) + 'px',
-    };
-  }
+  // private updateStyle() {
+  //   this.style = {
+  //     width: this.size,
+  //     height: this.size,
+  //     left: this.x,
+  //     top: this.y,
+  //     borderRadius: '50%',
+  //     lineHeight: this.size,
+  //   };
+  // }
 
 }
 
 export class ReactDot extends React.Component {
 
   private divStyle = {
+    display: 'block',
     position: 'absolute',
-    background: '#61dafb',
-    font: 'normal 15px sans-serif',
-    textAlign: 'center',
-    cursor: 'pointer'
+    'text-align': 'center',
+    'background-color': '#ddd',
+    color: '#222',
+    'border-radius': '50%',
+    cursor: 'pointer',
   }
 
 
   constructor(props) {
     super(props);
 
+    console.log(props);
+
+    this.divStyle['width'] = this.props['size'];
+    this.divStyle['line-height'] = this.props['size'];
+    this.divStyle['height'] = this.props['size'];
+    this.divStyle['left'] = this.props['x'];
+    this.divStyle['top'] = this.props['y'];
   }
 
   render() {

@@ -7,7 +7,7 @@ import { AngularReactRendererFactory } from "./renderer";
 import { CHILDREN_TO_APPEND_PROP } from './react-content';
 
 
-const DEBUG = true;
+const DEBUG = false;
 
 export function isReactNode(node: any): node is ReactNode {
   return (<ReactNode>node).setRenderPendingCallback !== undefined;

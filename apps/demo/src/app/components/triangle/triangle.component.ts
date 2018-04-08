@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, OnInit, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
@@ -7,6 +7,8 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
   styleUrls: ['./triangle.component.scss'],
 })
 export class TriangleComponent implements OnInit {
+
+  @ContentChild(TemplateRef) dotTemplate;
 
   seconds = 0;
   start;

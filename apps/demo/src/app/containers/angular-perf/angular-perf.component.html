@@ -1,4 +1,8 @@
 <h1>Angular Perf Demo</h1>
 <h3>Pure Angular View</h3>
 
-<app-triangle></app-triangle>
+<app-triangle>
+    <ng-template let-text="text" let-dot="dot">
+        <app-dot [size]="dot.size" [x]="dot.x" [y]="dot.y" [text]="text"></app-dot>
+    </ng-template>
+</app-triangle>
