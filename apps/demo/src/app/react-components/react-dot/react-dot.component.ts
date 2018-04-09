@@ -1,3 +1,4 @@
+// tslint:disable:no-input-rename
 // tslint:disable:no-output-rename
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import * as React from 'react';
@@ -18,15 +19,20 @@ export class ReactDotComponent implements OnChanges {
   @Input() x: string;
   @Input() y: string;
   @Input() size: string;
-  @Input() text: string;
+  @Input('text') _text: string;
   @Input() color: string;
   @Input() backgroundColor: string;
+  @Input() textOverride: string;
 
   @Output('onMouseEnter') mouseEnter: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
   @Output('onMouseLeave') mouseLeave: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   onMouseEnter = ev => this.mouseEnter.emit(ev as any);
   onMouseLeave = ev => this.mouseLeave.emit(ev as any);
+
+  get text() {
+    return this.textOverride && this._text ? this.textOverride : this._text;
+  }
 
   ngOnChanges() {
     this.style = {

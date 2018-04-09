@@ -15,6 +15,7 @@ export class DotComponent {
   @Input() size: string;
   @Input() color: string;
   @Input() backgroundColor: string;
+  @Input() textOverride: string;
 
   @Output('onMouseEnter') mouseEnter: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
   @Output('onMouseLeave') mouseLeave: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();

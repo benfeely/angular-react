@@ -11,12 +11,13 @@
         [x]="dot.x"
         [y]="dot.y"
         [color]="dot.color"
+        [textOverride]="dot.textOverride"
         [backgroundColor]="dot.backgroundColor"
         (onMouseEnter)="dot.hover = true"
         (onMouseLeave)="dot.hover = false"
         [text]="projectAsAngular ? '' : text"
       >
-        {{ projectAsAngular ? text : '' }}
+        {{ projectAsAngular ? dot.textOverride ? dot.textOverride : text : '' }}
       </app-react-dot>
     </ng-template>
 </app-triangle>

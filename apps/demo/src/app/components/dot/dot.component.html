@@ -9,5 +9,6 @@
   (mouseenter)="onMouseEnter($event)"
   (mouseleave)="onMouseLeave($event)"
 >
-  <ng-content></ng-content>
+  <ng-container *ngIf="textOverride">{{ textOverride }}</ng-container>
+  <ng-container *ngIf="!textOverride"><ng-content></ng-content></ng-container>
 </div>

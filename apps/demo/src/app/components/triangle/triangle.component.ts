@@ -1,3 +1,5 @@
+// tslint:disable:no-input-rename
+
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, OnInit, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
@@ -12,47 +14,29 @@ export const COLORS = { default: { text: '#222', bg: '#ddd' }, hover: { text: '#
 export class TriangleComponent implements OnInit {
 
   @ContentChild(TemplateRef) dotTemplate;
+  @Input() triangleSize = 500;              // In pixels, largest triangle size (height and width).
+  @Input() dotSize = 26;       // In pixels
 
   seconds = 0;
-  start;
-  elapsed;
+  start: number;
   scale = 3;
-  dots;
-  isActive;
-
-  callback;
-  interval;
-
-  constructor() {
-    // Force stop after limited time during development.
-    setTimeout(() => {
-      this.stop();
-    }, 10000);
-  }
+  dots: Array<SierpinskiTriangleDot>;
+  isActive: boolean;
+  interval: NodeJS.Timer;
 
   ngOnInit() {
-    this.dots = (new SierpinskiTriangle({x: 0, y: 0, s: 1000}, 25)).getDots();
-
+    setTimeout(() => this.stop(), 10000);   // Force stop after limited time during development.
+    this.dots = (new SierpinskiTriangle({x: 0, y: 0, size: this.triangleSize}, this.dotSize)).getDots();
     this.begin();
-  }
-
-  update(elapsed) {
-    const t = (elapsed / 1000) % 10;
-    const scale = 1 + (t > 5 ? 10 - t : t) / 10;
-    this.scale = scale / 2.1;
   }
 
   begin() {
     this.isActive = true;
-
-    this.interval = setInterval(() => {
-      this.seconds = (this.seconds % 10) + 1;
-    }, 1000);
-
+    this.interval = setInterval(() => this.updateSeconds(), 1000);
     this.start = new Date().getTime();
 
     const callback = () => {
-      this.update(Date.now() - this.start);
+      this.updateScale();
       if (this.isActive) {
         requestAnimationFrame(callback);
       }
@@ -66,11 +50,17 @@ export class TriangleComponent implements OnInit {
   }
 
   toggle() {
-    if (this.isActive) {
-      this.stop();
-    } else {
-      this.begin();
-    }
+    this.isActive ? this.stop() : this.begin();
+  }
+
+  updateSeconds() {
+    this.seconds = (this.seconds % 10) + 1;
+  }
+
+  updateScale(elapsed = Date.now() - this.start) {
+    const t = (elapsed / 1000) % 10;
+    const scale = 1 + (t > 5 ? 10 - t : t) / 10;
+    this.scale = scale / 2.1;
   }
 
 }
@@ -80,20 +70,20 @@ class SierpinskiTriangle {
   triangles: Array<SierpinskiTriangle> | any = [];
   dot: SierpinskiTriangleDot;
 
-  constructor({ x, y, s }, targetSize) {
-    if (s <= targetSize) {
+  constructor({ x, y, size }, targetSize) {
+    if (size <= targetSize) {
       this.dot = new SierpinskiTriangleDot(
         x - (targetSize / 2),
         y - (targetSize / 2),
         targetSize
       );
     } else {
-      const newSize = s / 2;
-      s /= 2;
+      const newSize = size / 2;
+      size /= 2;
       this.triangles = [
-        new SierpinskiTriangle({x, y: y - (s / 2), s}, targetSize),
-        new SierpinskiTriangle({x: x - s, y: y + (s / 2), s}, targetSize),
-        new SierpinskiTriangle({x: x + s, y: y + (s / 2), s}, targetSize)
+        new SierpinskiTriangle({x, y: y - (size / 2), size}, targetSize),
+        new SierpinskiTriangle({x: x - size, y: y + (size / 2), size}, targetSize),
+        new SierpinskiTriangle({x: x + size, y: y + (size / 2), size}, targetSize)
       ];
     }
   }
@@ -107,6 +97,8 @@ class SierpinskiTriangle {
 class SierpinskiTriangleDot {
 
   hover = false;
+
+  constructor(private _x, private _y, private _size) { }
 
   get x() {
     return this._x + 'px';
@@ -128,6 +120,8 @@ class SierpinskiTriangleDot {
     return this.hover ? COLORS.hover.bg : COLORS.default.bg;
   }
 
-  constructor(private _x, private _y, private _size) { }
+  get textOverride() {
+    return this.hover ? '-' : '';
+  }
 
 }
