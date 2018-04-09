@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, OnInit, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
+
+export const COLORS = { default: { text: '#222', bg: '#ddd' }, hover: { text: '#fff', bg: '#0078D4' } }
+
 @Component({
   selector: 'app-triangle',
   templateUrl: './triangle.component.html',

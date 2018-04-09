@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+// tslint:disable:no-output-rename
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { COLORS } from '../triangle/triangle.component';
+
 
 @Component({
   selector: 'app-dot',
@@ -11,16 +15,15 @@ export class DotComponent {
   @Input() x: string;
   @Input() y: string;
   @Input() size: string;
-  @Input() text: string;
 
-  hover = false;
+  activeColor = COLORS.default;
 
-  onMouseEnter(ev) {
-    this.hover = true;
+  onMouseEnter = ev => {
+    this.activeColor = COLORS.hover;
   }
 
-  onMouseLeave(ev) {
-    this.hover = false;
+  onMouseLeave = ev => {
+    this.activeColor = COLORS.default;
   }
 
 }

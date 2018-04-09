@@ -1,0 +1,15 @@
+<ReactDot
+  [style.width]="size"
+  [style.lineHeight]="size"
+  [style.height]="size"
+  [style.left]="x"
+  [style.top]="y"
+  [style.color]="activeColor.text"
+  [style.backgroundColor]="activeColor.bg"
+  (onMouseEnter)="onMouseEnter($event)"
+  (onMouseLeave)="onMouseLeave($event)"
+  >
+  <react-content>
+    <ng-content></ng-content>
+  </react-content>
+</ReactDot>

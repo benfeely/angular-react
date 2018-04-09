@@ -4,9 +4,10 @@
   [style.height]="size"
   [style.left]="x"
   [style.top]="y"
-  [class.hover]="hover"
+  [style.color]="activeColor.text"
+  [style.background-color]="activeColor.bg"
   (mouseenter)="onMouseEnter($event)"
   (mouseleave)="onMouseLeave($event)"
 >
-  {{ text }}
+  <ng-content></ng-content>
 </div>

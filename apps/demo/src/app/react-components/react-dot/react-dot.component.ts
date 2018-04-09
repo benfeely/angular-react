@@ -1,84 +1,107 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+// tslint:disable:no-output-rename
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import { COLORS } from '../../components/triangle/triangle.component';
+
+
 @Component({
   selector: 'app-react-dot',
-  template: `
-    <ReactDot [size]="size" [x]="x" [y]="y" [text]="hover ? '*' + text + '*' : text"></ReactDot>
-  `,
+  templateUrl: './react-dot.component.html',
+  styleUrls: ['./react-dot.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [ 'react-renderer' ],
 })
-export class ReactDotComponent implements OnChanges {
+export class ReactDotComponent {
 
-  @Input() x: number;
-  @Input() y: number;
-  @Input() size: number;
+  @Input() x: string;
+  @Input() y: string;
+  @Input() size: string;
   @Input() text: string;
 
-  hover = false;
-  // style: { [k: string]: any };
-  // bgColor: string;
-
-  ngOnChanges(changes: SimpleChanges) {
-  //   const shapeChanged = 'x' in changes || 'y' in changes || 'size' in changes;
-
-  //   if (shapeChanged) {
-  //     this.updateStyle();
-  //   }
+  activeColor = COLORS.default;
+  style: ReactDotStyle = {
+    width: this.size,
+    lineHeight: this.size,
+    height: this.size,
+    left: this.x,
+    top: this.y,
+    color: this.activeColor.text,
+    backgroundColor: this.activeColor.bg,
   }
 
-  // enter() {
-  //   this.hover = true;
-  //   this.bgColor = '#ff0';
-  // }
+  onMouseEnter = ev => {
+    this.activeColor = COLORS.hover;
+  }
 
-  // leave() {
-  //   this.hover = false;
-  //   this.bgColor = undefined;
-  // }
+  onMouseLeave = ev => {
+    this.activeColor = COLORS.default;
+  }
 
-  // private updateStyle() {
-  //   this.style = {
-  //     width: this.size,
-  //     height: this.size,
-  //     left: this.x,
-  //     top: this.y,
-  //     borderRadius: '50%',
-  //     lineHeight: this.size,
-  //   };
-  // }
+}
 
+interface ReactDotStyle {
+  display?: string,
+  position?: string,
+  textAlign?: string,
+  borderRadius?: string,
+  cursor?: string,
+
+  width?: string,
+  lineHeight?: string,
+  height?: string,
+  left?: string,
+  top?: string,
+  color?: string,
+  backgroundColor?: string,
+}
+
+interface ReactDotProps {
+  style: ReactDotStyle
+  onMouseEnter?: (ev) => void,
+  onMouseLeave?: (ev) => void,
 }
 
 export class ReactDot extends React.Component {
 
-  private divStyle = {
-    display: 'block',
-    position: 'absolute',
-    'text-align': 'center',
-    'background-color': '#ddd',
-    color: '#222',
-    'border-radius': '50%',
-    cursor: 'pointer',
+  private filteredProps: ReactDotProps = {
+    style: {
+      display: 'block',
+      position: 'absolute',
+      textAlign: 'center',
+      borderRadius: '50%',
+      cursor: 'pointer',
+    }
+  }
+
+  private setStyle(name: string, value: string) {
+    this.filteredProps.style[name] = value;
   }
 
 
   constructor(props) {
     super(props);
 
-    console.log(props);
+    this.filteredProps.style = { ...this.filteredProps.style, ...this.props['style'] };
+    this.filteredProps.onMouseEnter = this.props['onMouseEnter'];
+    this.filteredProps.onMouseLeave = this.props['onMouseLeave'];
 
-    this.divStyle['width'] = this.props['size'];
-    this.divStyle['line-height'] = this.props['size'];
-    this.divStyle['height'] = this.props['size'];
-    this.divStyle['left'] = this.props['x'];
-    this.divStyle['top'] = this.props['y'];
+    console.log(this.filteredProps, this.props['style']);
+    // this.setStyle('width', props['style']['size']);
+    // this.setStyle('lineHeight', props['size']);
+    // this.setStyle('height', props['size']);
+    // this.setStyle('left', props['x']);
+    // this.setStyle('top', props['y']);
+    // this.setStyle('color', props['color']);
+    // this.setStyle('backgroundColor', props['backgroundColor']);
+
+    // this.filteredProps.onMouseEnter = props['mouseenter'];
+    // this.filteredProps.onMouseLeave = props['mouseleave'];
   }
 
   render() {
-    return React.createElement('div', { style: this.divStyle }, [this.props['text']]);
+    return React.createElement('div', this.filteredProps, [this.props['text'], ...this.props.children as any]);
   }
 
 }
