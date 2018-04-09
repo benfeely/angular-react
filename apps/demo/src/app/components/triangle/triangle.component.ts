@@ -1,6 +1,6 @@
 // tslint:disable:no-input-rename
 
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, OnInit, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, OnInit, ViewEncapsulation, ContentChild, TemplateRef, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 
@@ -14,8 +14,8 @@ export const COLORS = { default: { text: '#222', bg: '#ddd' }, hover: { text: '#
 export class TriangleComponent implements OnInit {
 
   @ContentChild(TemplateRef) dotTemplate;
-  @Input() triangleSize = 500;              // In pixels, largest triangle size (height and width).
-  @Input() dotSize = 26;       // In pixels
+  @Input() triangleSize;              // In pixels, largest triangle size (height and width).
+  @Input() dotSize = 35;       // In pixels
 
   seconds = 0;
   start: number;
@@ -24,8 +24,15 @@ export class TriangleComponent implements OnInit {
   isActive: boolean;
   interval: NodeJS.Timer;
 
+  constructor(private el: ElementRef) {}
+
   ngOnInit() {
-    setTimeout(() => this.stop(), 10000);   // Force stop after limited time during development.
+    // setTimeout(() => this.stop(), 10000);   // Force stop after limited time during development.
+
+    if (!this.triangleSize) {
+      // Calculate size based on this element's size.
+      this.triangleSize = Math.min(this.el.nativeElement.offsetHeight * 1.3, this.el.nativeElement.offsetWidth * 0.7);
+    }
     this.dots = (new SierpinskiTriangle({x: 0, y: 0, size: this.triangleSize}, this.dotSize)).getDots();
     this.begin();
   }
