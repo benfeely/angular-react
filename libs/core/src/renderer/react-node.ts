@@ -159,11 +159,6 @@ export class ReactNode {
   // This is called by Angular core when projected content is being added.
   appendChild(projectedContent: HTMLElement) {
     if (DEBUG) { console.error('ReactNode > appendChild > node:', this.toString(), 'projectedContent:', projectedContent.toString().trim()); }
-
-    // // if (projectedContent.parentElement === this._parent) {
-    // //   console.log('yeah!!!!!!!!!!!!!!!!!!');
-    // // }
-
     this.childrenToAppend.push(projectedContent);
   }
 
