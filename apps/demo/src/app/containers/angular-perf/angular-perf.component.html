@@ -3,6 +3,16 @@
 
 <app-triangle>
     <ng-template let-text="text" let-dot="dot">
-        <app-dot [size]="dot.size" [x]="dot.x" [y]="dot.y">{{ text }}</app-dot>
+      <app-dot
+        [size]="dot.size"
+        [x]="dot.x"
+        [y]="dot.y"
+        [color]="dot.color"
+        [backgroundColor]="dot.backgroundColor"
+        (onMouseEnter)="dot.hover = true"
+        (onMouseLeave)="dot.hover = false"
+      >
+        {{ text }}
+      </app-dot>
     </ng-template>
 </app-triangle>

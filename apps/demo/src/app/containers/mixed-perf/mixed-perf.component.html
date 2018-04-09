@@ -6,7 +6,16 @@
 <button (click)="toggle()">Toggle Projection</button>
 <app-triangle>
     <ng-template let-text="text" let-dot="dot">
-      <app-react-dot [size]="dot.size" [x]="dot.x" [y]="dot.y" [text]="projectAsAngular ? '' : text">
+      <app-react-dot
+        [size]="dot.size"
+        [x]="dot.x"
+        [y]="dot.y"
+        [color]="dot.color"
+        [backgroundColor]="dot.backgroundColor"
+        (onMouseEnter)="dot.hover = true"
+        (onMouseLeave)="dot.hover = false"
+        [text]="projectAsAngular ? '' : text"
+      >
         {{ projectAsAngular ? text : '' }}
       </app-react-dot>
     </ng-template>

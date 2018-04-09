@@ -1,11 +1,6 @@
 <ReactDot
-  [style.width]="size"
-  [style.lineHeight]="size"
-  [style.height]="size"
-  [style.left]="x"
-  [style.top]="y"
-  [style.color]="activeColor.text"
-  [style.backgroundColor]="activeColor.bg"
+  [dynamicStyle]="style"
+  [text]="text"
   (onMouseEnter)="onMouseEnter($event)"
   (onMouseLeave)="onMouseLeave($event)"
   >

@@ -106,6 +106,8 @@ class SierpinskiTriangle {
 
 class SierpinskiTriangleDot {
 
+  hover = false;
+
   get x() {
     return this._x + 'px';
   }
@@ -116,6 +118,14 @@ class SierpinskiTriangleDot {
 
   get size() {
     return this._size * 0.9 + 'px';
+  }
+
+  get color() {
+    return this.hover ? COLORS.hover.text : COLORS.default.text;
+  }
+
+  get backgroundColor() {
+    return this.hover ? COLORS.hover.bg : COLORS.default.bg;
   }
 
   constructor(private _x, private _y, private _size) { }

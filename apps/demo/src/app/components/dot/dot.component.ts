@@ -1,7 +1,5 @@
 // tslint:disable:no-output-rename
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-
-import { COLORS } from '../triangle/triangle.component';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -15,15 +13,13 @@ export class DotComponent {
   @Input() x: string;
   @Input() y: string;
   @Input() size: string;
+  @Input() color: string;
+  @Input() backgroundColor: string;
 
-  activeColor = COLORS.default;
+  @Output('onMouseEnter') mouseEnter: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output('onMouseLeave') mouseLeave: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
-  onMouseEnter = ev => {
-    this.activeColor = COLORS.hover;
-  }
-
-  onMouseLeave = ev => {
-    this.activeColor = COLORS.default;
-  }
+  onMouseEnter = ev => this.mouseEnter.emit(ev as any);
+  onMouseLeave = ev => this.mouseLeave.emit(ev as any);
 
 }
