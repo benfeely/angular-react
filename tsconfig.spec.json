@@ -14,9 +14,6 @@
   ],
   "exclude": [
     "node_modules",
-    "tmp",
-    "**/e2e/*.ts",
-    "**/*.e2e-spec.ts",
-    "**/*.po.ts"
+    "tmp"
   ]
 }
