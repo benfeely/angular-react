@@ -1,7 +1,7 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc/e2e/demo-from-packages",
+    "outDir": "../../../dist/out-tsc/e2e/docs-from-packages",
     "module": "commonjs",
     "target": "es5",
     "types": [
