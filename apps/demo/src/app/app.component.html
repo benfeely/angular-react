@@ -1,17 +1,23 @@
+<div>
+  <h1>Angular-React Demo</h1>
+  <h2>Getting up and running...</h2>
 
-<div style="text-align:center">
-  <h1>
-    Welcome to an Angular CLI app built with Nrwl Nx!
-  </h1>
-  <img width="300" src="assets/nx-logo.png">
+  <ol>
+    <li>Add <i>AngularReactBrowserModule</i>> to <i>app.module.ts</i> in place of the default <i>BrowserModule</i>.</li>
+    <li>Add <i>AngularReactFabricModule</i> or <i>AngularReactFabricModule</i> to <i>app.module.ts</i> imports.</li>
+    <li>Add Fabric or Material components to your views.</li>
+  </ol>
 </div>
 
-<h2>Nx</h2>
+<div>
+  <fabric-button label="Test Dialog" (onClick)="toggleDialog()"></fabric-button>
+  <fabric-dialog [hidden]="dialogHidden" (onDismiss)="toggleDialog()" key="d2" title="Fabric [React] Dialog" subText="Use Fabric React components inside your Angular app!" [type]="DialogType.largeHeader">
+    Hello world! {{ counter }}
+    <fabric-dialog-footer>
+      <fabric-button (onClick)="incrementCounter()" label='Save' style="margin-right:10px;"></fabric-button>
+      <fabric-button (onClick)="toggleDialog()" label='Cancel'></fabric-button>
+    </fabric-dialog-footer>
+  </fabric-dialog>
+</div>
 
-An open source toolkit for enterprise Angular applications.
-
-Nx is designed to help you create and build enterprise grade Angular applications. It provides an opinionated approach to application project structure and patterns.
-
-<h2>Quick Start & Documentation</h2>
-
-<a href="https://nrwl.io/nx">Watch a 5-minute video on how to get started with Nx.</a>
+<img src="assets/app-module-dif.png">
