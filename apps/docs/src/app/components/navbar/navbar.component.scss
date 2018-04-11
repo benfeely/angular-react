@@ -38,52 +38,58 @@
   nav.secondary {
     background: $smoke;
 
-    /deep/ .mat-tab-links {
-      display: flex;
+    /deep/ .mat-tab-nav-bar {
+      // display: flex;
+      // justify-content: center;
 
-      .mat-ink-bar {
-        background-color: $oil;
-      }
-
-      .mat-tab-link {
-        height: $navSecondaryHeight;
-        transition: height 500ms;
+      .mat-tab-links {
         display: flex;
-        flex-direction: column;
-        transition: height 500ms;
+        overflow-y: auto;
 
-        &.mat-tab-label-active {
-          opacity: 1;
+        .mat-ink-bar {
+          background-color: $oil;
         }
 
-        mat-icon {
-          font-size: $navSecondaryHeight - 24;
-          height: $navSecondaryHeight - 24;
-          width: $navSecondaryHeight - 24;
-          opacity: 1;
-          transition: 500ms;
+        .mat-tab-link {
+          height: $navSecondaryHeight;
+          transition: height 500ms;
+          display: flex;
+          flex-direction: column;
+          transition: height 500ms;
 
-          svg {
-            transition: 500ms;
-            margin: $navSecondaryHeight / 6;
+          &.mat-tab-label-active {
+            opacity: 1;
           }
 
-          &.stack {
-            position: relative;
+          mat-icon {
+            font-size: $navSecondaryHeight - 24;
+            height: $navSecondaryHeight - 24;
+            width: $navSecondaryHeight - 24;
+            opacity: 1;
+            transition: 500ms;
 
             svg {
-              position: absolute;
-              top: 50%;
-              left: 50%;
+              transition: 500ms;
+              margin: $navSecondaryHeight / 6;
+            }
 
-              &:first-child {
-                margin: -30%;
-                height: 50%;
-              }
+            &.stack {
+              position: relative;
 
-              &:last-child {
-                margin: 10%;
-                height: 30%;
+              svg {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+
+                &:first-child {
+                  margin: -30%;
+                  height: 50%;
+                }
+
+                &:last-child {
+                  margin: 10%;
+                  height: 30%;
+                }
               }
             }
           }
