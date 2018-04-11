@@ -4,7 +4,6 @@ import { NxModule } from '@nrwl/nx';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularReactBrowserModule, registerElement } from '@angular-react/core';
-import { AngularReactFabricModule } from '@angular-react/fabric';
 
 import { SharedModule } from './shared';
 import { ComponentsModule } from './components';
@@ -13,16 +12,17 @@ import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactComponentsModule } from './react-components';
 import { AppComponent } from './app.component';
+import { FabricModule } from './fabric.module';
 
 
 @NgModule({
   imports: [
     AngularReactBrowserModule,
     NxModule.forRoot(),
-    AngularReactFabricModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FabricModule,
 
     SharedModule,
     ReactComponentsModule,

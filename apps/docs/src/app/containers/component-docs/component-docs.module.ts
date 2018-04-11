@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { AngularReactFabricModule } from '@angular-react/fabric';
-
 import { ReactComponentsModule } from '../../react-components';
 import { SharedModule } from '../../shared';
 import { ComponentsModule } from '../../components';
@@ -12,6 +10,7 @@ import { ComponentDocsComponent } from './component-docs.component';
 import { FabricComponent } from './fabric/fabric.component';
 import { MaterialComponent } from './material/material.component';
 import { MaterialModule } from '../../material.module';
+import { FabricModule } from '../../fabric.module';
 
 
 const components = [
@@ -25,7 +24,7 @@ const components = [
     CommonModule,
     RouterModule,
 
-    AngularReactFabricModule,
+    FabricModule,
     ReactComponentsModule,
     SharedModule,
     MaterialModule,

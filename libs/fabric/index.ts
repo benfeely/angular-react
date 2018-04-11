@@ -1,1 +1,1 @@
-export { AngularReactFabricModule } from './src/fabric.module';
+export * from './public-api';

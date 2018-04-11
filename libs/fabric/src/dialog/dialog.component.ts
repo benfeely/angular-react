@@ -1,6 +1,7 @@
 // tslint:disable:component-selector
 // tslint:disable:no-input-rename
 // tslint:disable:no-output-rename
+// tslint:disable:use-host-property-decorator
 
 import {
   ChangeDetectionStrategy,
@@ -16,7 +17,8 @@ import { DialogType, DialogFooter } from 'office-ui-fabric-react/lib/components/
 
 
 @Component({
-  selector: 'fabric-dialog',
+  selector: 'fab-dialog',
+  exportAs: 'fabDialog',
   template: `
     <Dialog
       [hidden]="hidden"
@@ -36,8 +38,9 @@ import { DialogType, DialogFooter } from 'office-ui-fabric-react/lib/components/
   `,
   styles: ['react-renderer'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'class': 'fab-dialog' }
 })
-export class FabricDialogComponent {
+export class FabDialogComponent {
 
   @Input() hidden = false;
   @Input() type = DialogType.normal;
@@ -53,7 +56,8 @@ export class FabricDialogComponent {
 
 
 @Component({
-  selector: 'fabric-dialog-footer',
+  selector: 'fab-dialog-footer',
+  exportAs: 'fabDialogFooter',
   template: `
     <DialogFooter key="4">
       <ReactContent><ng-content></ng-content></ReactContent>
@@ -61,7 +65,8 @@ export class FabricDialogComponent {
   `,
   styles: ['react-renderer'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'class': 'fab-dialog-footer' }
 })
-export class FabricDialogFooterComponent {
+export class FabDialogFooterComponent {
 
 }

@@ -1,7 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AngularReactFabricModule } from '@angular-react/fabric';
 
 import { ReactComponentsModule } from '../react-components';
 
@@ -12,6 +11,7 @@ import { MaterialModule } from '../material.module';
 import { IconsComponent } from './icons/icons.component';
 import { SubNavComponent } from './sub-nav/sub-nav.component';
 import { SharedModule } from '../shared';
+import { FabricModule } from '../fabric.module';
 
 
 const components = [
@@ -26,7 +26,7 @@ const components = [
   imports: [
     CommonModule,
     RouterModule,
-    AngularReactFabricModule,
+    FabricModule,
     ReactComponentsModule,
     MaterialModule,
     SharedModule,
