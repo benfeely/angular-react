@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { TriangleComponent } from '../../components/triangle/triangle.component';
+import { TriangleComponent } from '../../../components/triangle/triangle.component';
 
 
 @Component({

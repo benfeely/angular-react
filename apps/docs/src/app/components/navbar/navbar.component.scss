@@ -93,7 +93,7 @@
 
     &.collapse {
 
-      .mat-tab-link {
+      /deep/ .mat-tab-link {
         height: $navSecondaryHeightCollapsed;
 
         mat-icon {

@@ -1,0 +1,18 @@
+<ng-container *subnav>
+  <div mat-tab-nav-bar>
+    <a mat-tab-link routerLink="quick-start" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
+      <mat-icon>
+        quick
+      </mat-icon>
+      Quick Start
+    </a>
+    <a mat-tab-link routerLink="wrappers" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
+      <mat-icon>
+        wrappers
+      </mat-icon>
+      Wrappers
+    </a>
+  </div>
+</ng-container>
+
+<router-outlet></router-outlet>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DialogType } from 'office-ui-fabric-react/lib/Dialog';
 
 @Component({
@@ -6,7 +6,7 @@ import { DialogType } from 'office-ui-fabric-react/lib/Dialog';
   templateUrl: './fabric.component.html',
   styleUrls: ['./fabric.component.scss']
 })
-export class FabricComponent implements OnInit {
+export class FabricComponent {
   DialogType = DialogType;
 
   disabled = true;
@@ -30,8 +30,6 @@ export class FabricComponent implements OnInit {
       clearInterval(i);
     }, 12000);
   }
-
-  ngOnInit() { }
 
   toggle() {
     this.disabled = !this.disabled;

@@ -6,12 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularReactBrowserModule, registerElement } from '@angular-react/core';
 import { AngularReactFabricModule } from '@angular-react/fabric';
 
-import { AppComponent } from './app.component';
-import { ComponentsModule } from './components/components.module';
-import { ReactComponentsModule } from './react-components/react-components.module';
-import { AppRoutingModule } from './app-routing.module';
-import { ContainersModule } from './containers/containers.module';
+import { SharedModule } from './shared';
+import { ComponentsModule } from './components';
+import { LandingComponent, ComponentDocsModule, DocsModule, PerformanceModule } from './containers';
 import { MaterialModule } from './material.module';
+import { AppRoutingModule } from './app-routing.module';
+import { ReactComponentsModule } from './react-components';
+import { AppComponent } from './app.component';
 
 
 @NgModule({
@@ -23,11 +24,14 @@ import { MaterialModule } from './material.module';
     BrowserAnimationsModule,
     MaterialModule,
 
-    ContainersModule,
-    ComponentsModule,
+    SharedModule,
     ReactComponentsModule,
+    ComponentsModule,
+    ComponentDocsModule,
+    DocsModule,
+    PerformanceModule,
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, LandingComponent],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
