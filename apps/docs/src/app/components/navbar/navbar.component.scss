@@ -99,31 +99,37 @@
 
     &.collapse {
 
-      /deep/ .mat-tab-link {
-        height: $navSecondaryHeightCollapsed;
+      /deep/ .mat-tab-nav-bar {
 
-        mat-icon {
-          font-size: 1px;
-          height: 1px;
-          width: 1px;
-          opacity: 0;
+        .mat-tab-links {
 
-          svg {
-            margin: 0;
-          }
+          .mat-tab-link {
+            height: $navSecondaryHeightCollapsed;
 
-          &.stack {
+            mat-icon {
+              font-size: 1px;
+              height: 1px;
+              width: 1px;
+              opacity: 0;
 
-            svg {
-
-              &:first-child {
-                margin: -30%;
-                height: 70%;
+              svg {
+                margin: 0;
               }
 
-              &:last-child {
-                margin: 18%;
-                height: 55%;
+              &.stack {
+
+                svg {
+
+                  &:first-child {
+                    margin: -30%;
+                    height: 70%;
+                  }
+
+                  &:last-child {
+                    margin: 18%;
+                    height: 55%;
+                  }
+                }
               }
             }
           }
