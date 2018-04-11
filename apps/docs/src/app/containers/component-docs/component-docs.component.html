@@ -1,5 +1,5 @@
-<ng-container *subnav>
-  <div mat-tab-nav-bar>
+<app-sub-nav>
+    <div mat-tab-nav-bar>
     <a mat-tab-link routerLink="fabric" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
       <mat-icon>
         <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24">
@@ -17,6 +17,6 @@
       Material
     </a>
   </div>
-</ng-container>
+</app-sub-nav>
 
 <router-outlet></router-outlet>

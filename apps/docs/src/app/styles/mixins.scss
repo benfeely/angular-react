@@ -1,0 +1,6 @@
+@import './variables.scss';
+
+@mixin navSecondarySpacer {
+  box-sizing: border-box;
+  border-top: $navSecondaryHeight + 1 solid transparent;
+}

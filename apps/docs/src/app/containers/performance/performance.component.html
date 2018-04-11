@@ -1,4 +1,4 @@
-<ng-container *subnav>
+<app-sub-nav>
   <div mat-tab-nav-bar>
     <a mat-tab-link routerLink="angular" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
       <mat-icon>
@@ -24,6 +24,6 @@
       Profiles
     </a>
   </div>
-</ng-container>
+</app-sub-nav>
 
 <router-outlet></router-outlet>
