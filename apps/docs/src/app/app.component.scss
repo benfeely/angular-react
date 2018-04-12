@@ -6,7 +6,8 @@
   box-sizing: border-box;
   border-top: $navPrimaryHeight + 1 solid transparent;
 
-  /deep/ > * {
+  /deep/ .page {
     background: $snow;
+    padding: 20px;
   }
 }

@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-component-docs',
   templateUrl: './component-docs.component.html',
   styleUrls: ['./component-docs.component.scss']
 })
-export class ComponentDocsComponent {}
+export class ComponentDocsComponent {
+
+  @HostBinding('class.page') page = true;
+
+}
