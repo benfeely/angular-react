@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  // flex-direction: row;
+  // justify-content: last-baseline;
+
+  /deep/ {
+    h1, h2, h3, h4, h5, h6 {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin: 0;
+      padding-bottom: 4px;
+      margin-right: 10px;
+    }
+
+    button {
+      margin-left: -8px;
+    }
+  }
+
+}

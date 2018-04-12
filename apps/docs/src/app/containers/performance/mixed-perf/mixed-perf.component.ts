@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { TriangleComponent } from '../../../components/triangle/triangle.component';
+import { MatSliderChange } from '@angular/material';
+
+import { TriangleComponent, DEFAULT_DOT_SIZE } from '../../../components/triangle/triangle.component';
 
 
 @Component({
@@ -8,6 +10,7 @@ import { TriangleComponent } from '../../../components/triangle/triangle.compone
   styleUrls: ['./mixed-perf.component.scss']
 })
 export class MixedPerfComponent {
+  DEFAULT_DOT_SIZE = DEFAULT_DOT_SIZE;
 
   @ViewChild(TriangleComponent) triangle: TriangleComponent;
 
@@ -23,6 +26,10 @@ export class MixedPerfComponent {
 
   toggle() {
     this.projectAsAngular = !this.projectAsAngular;
+  }
+
+  dotSizeChanged(ev: MatSliderChange) {
+    this.triangle.start({ dotSize: ev.value, redraw: true });
   }
 
 }
