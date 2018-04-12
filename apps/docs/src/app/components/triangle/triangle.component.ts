@@ -34,7 +34,7 @@ export class TriangleComponent implements OnInit {
     setTimeout(() => {
       if (!this.triangleSize) {
         // Calculate size based on this element's size.
-        this.triangleSize = Math.min(this.el.nativeElement.parentNode.offsetHeight * 1.3, this.el.nativeElement.parentNode.offsetWidth * 0.7);
+        this.triangleSize = Math.min((this.el.nativeElement.parentNode.offsetHeight * 1.3) - 40, this.el.nativeElement.parentNode.offsetWidth * 0.7);
       }
       this.dots = (new SierpinskiTriangle({x: 0, y: 0, size: this.triangleSize}, this.dotSize)).getDots();
       this.begin();
