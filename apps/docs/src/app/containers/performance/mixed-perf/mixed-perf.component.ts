@@ -15,6 +15,7 @@ export class MixedPerfComponent {
   @ViewChild(TriangleComponent) triangle: TriangleComponent;
 
   projectAsAngular = true;
+  contentCollapsed = true;
 
   get toggleTriangleLabel() {
     return this.triangle.isActive ? 'Stop' : 'Restart';

@@ -1,6 +1,8 @@
 <app-page-header>
-  <h1>Mixed Perf</h1>
-  <h3>React dots rendered in an Angular View ({{ projectAsAngular ? 'Angular' : 'React' }} digits)</h3>
+  <div>
+    <h1>Mixed Perf</h1>
+    <h3>React Rendered Dots</h3>
+  </div>
 
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>settings</mat-icon>
@@ -13,16 +15,36 @@
     </button>
     <div mat-menu-item>
       <mat-slide-toggle (click)="toggle()">
-        <ng-container *ngIf="!projectAsAngular">Project as Angular</ng-container>
-        <ng-container *ngIf="projectAsAngular">As React Attribute</ng-container>
+        <span style="font-size:16px !important">
+          <ng-container *ngIf="!projectAsAngular">As Angular projection</ng-container>
+          <ng-container *ngIf="projectAsAngular">As React attribute</ng-container>
+        </span>
       </mat-slide-toggle>
     </div>
     <div mat-menu-item>
       <mat-slider [value]="DEFAULT_DOT_SIZE" max="60" min="10" step="10" tick-interval="1" (change)="dotSizeChanged($event)">
       </mat-slider>
+      <label>Dot size</label>
     </div>
   </mat-menu>
 </app-page-header>
+
+<span class="content" [class.collapsed]="contentCollapsed">
+  Every dot is an Angular Component. The counter is {{ projectAsAngular ? 'projected by Angular' : 'rendered by React' }}
+  Within the component is a React Element that is rendered by the Angular-React renderer.<span class="spacer"><br /><br /></span>
+
+  This performance demonstration visualizes the impact of DOM binging and re-rendering on the single-threaded javascript
+  process. In this case, the animation is interupted by the rendering of the text counter with each tick (second). React
+  and Angular both have advanced binding logic that schedules DOM updates when the thread is not busy (such as when rendering
+  a smooth animation). The toggle between "Angular projection" and "React rendering" of the text counter within each dot
+  (currently set for {{ projectAsAngular ? 'Angular projection' : 'React rendering' }}) demonstrates a limitation of the
+  React elements. Each dot that is rendered by React is discrete. React does not collectively render the dots, and therefore
+  cannot use a global scheduler to ensure that the thread is not blocked and that smooth animation is preserved. When smooth
+  rendering is required, projection of DOM rendering by Angular (through the React element) is more performant.
+
+  <div class="expand" (click)="contentCollapsed = false"></div>
+  <span class="collapse" (click)="contentCollapsed = true">[collapse]</span>
+</span>
 
 <app-triangle>
   <ng-template let-text="text" let-dot="dot">

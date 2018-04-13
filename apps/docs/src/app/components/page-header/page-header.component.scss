@@ -5,12 +5,14 @@
 
   /deep/ {
     h1, h2, h3, h4, h5, h6 {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      display: inline-block;
       margin: 0;
       padding-bottom: 4px;
       margin-right: 10px;
+    }
+
+    div {
+      flex-grow: 1;
     }
 
     button {
