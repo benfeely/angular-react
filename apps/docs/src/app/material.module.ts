@@ -8,6 +8,7 @@ import {
   MatMenuModule,
   MatSlideToggleModule,
   MatSliderModule,
+  MatButtonToggleModule,
 } from '@angular/material';
 
 const componentModules = [
@@ -19,6 +20,7 @@ const componentModules = [
   MatMenuModule,
   MatSlideToggleModule,
   MatSliderModule,
+  MatButtonToggleModule,
 ]
 @NgModule({
   imports: componentModules,

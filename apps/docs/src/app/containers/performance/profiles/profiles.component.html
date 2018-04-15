@@ -1,5 +1,43 @@
 <h1>Performance Profiles</h1>
 
-<p style="margin-top:2000px;">
-  profiles works!
-</p>
+<!-- <button class="mat-button" (click)="focus = 'detail'">Detail</button>
+<button (click)="focus = 'detail-zoom'">Detail (Zoomed)</button>
+<button (click)="focus = 'heap'">Heap</button>
+<button (click)="focus = 'summary'">Summary</button> -->
+
+<div class="perf-images {{ focus.value }}">
+  <h3>Pure Angular View</h3>
+
+  <mat-button-toggle-group #focus="matButtonToggleGroup" value="summary">
+    <mat-button-toggle value="summary" checked>
+      <mat-icon>pie_chart</mat-icon>
+      <span>Summary</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="detail">
+      <mat-icon>view_array</mat-icon>
+      <span>Detail</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="detail-zoom">
+      <mat-icon>view_carousel</mat-icon>
+      <span>Detail (Zoomed)</span>
+    </mat-button-toggle>
+    <mat-button-toggle value="heap">
+      <mat-icon>equalizer</mat-icon>
+      <span>Heap Usage</span>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <div class="perf-angular perf-image">
+    <img src='/assets/angular_perf.png' />
+  </div>
+
+  <h3>React Rendered Dots (Angular Counter)</h3>
+  <div class="perf-mixed perf-image">
+    <img src='/assets/angular_react_angular_perf.png' />
+  </div>
+
+  <h3>React Rendered Dots (React Counter)</h3>
+  <div class="perf-react perf-image">
+    <img src='/assets/angular_react_perf.png' />
+  </div>
+</div>
