@@ -23,6 +23,7 @@
       img {
         width: 100%;
         transition: 500ms;
+        cursor: pointer;
       }
     }
   }
@@ -44,6 +45,11 @@
 
   .perf-images.detail .perf-image img {
       margin-bottom: -57.2%;
+  }
+
+  .perf-images .perf-image img.zoom {
+      margin-top: 0;
+      margin-bottom: 0;
   }
 }
 
