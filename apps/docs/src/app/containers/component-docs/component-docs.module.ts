@@ -11,6 +11,7 @@ import { FabricComponent } from './fabric/fabric.component';
 import { SemanticUiComponent } from './semantic-ui/semantic-ui.component';
 import { MaterialModule } from '../../material.module';
 import { FabricModule } from '../../fabric.module';
+import { SemanticModule } from '../../semantic.module';
 
 
 const components = [
@@ -25,6 +26,7 @@ const components = [
     RouterModule,
 
     FabricModule,
+    SemanticModule,
     ReactComponentsModule,
     SharedModule,
     MaterialModule,

@@ -23,7 +23,6 @@ import { IButtonProps, DefaultButton } from 'office-ui-fabric-react/lib/Button';
   styleUrls: ['./button.component.css'],
   styles: [
     'react-renderer',
-    ':host { display: inline-block; background: red; }'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'class': 'fab-button' }
