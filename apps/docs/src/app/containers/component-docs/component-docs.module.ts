@@ -8,7 +8,7 @@ import { ComponentsModule } from '../../components';
 
 import { ComponentDocsComponent } from './component-docs.component';
 import { FabricComponent } from './fabric/fabric.component';
-import { MaterialComponent } from './material/material.component';
+import { SemanticUiComponent } from './semantic-ui/semantic-ui.component';
 import { MaterialModule } from '../../material.module';
 import { FabricModule } from '../../fabric.module';
 
@@ -16,7 +16,7 @@ import { FabricModule } from '../../fabric.module';
 const components = [
   ComponentDocsComponent,
   FabricComponent,
-  MaterialComponent,
+  SemanticUiComponent,
 ];
 
 @NgModule({
@@ -38,5 +38,5 @@ export class ComponentDocsModule { }
 export {
   ComponentDocsComponent,
   FabricComponent,
-  MaterialComponent,
+  SemanticUiComponent,
 };

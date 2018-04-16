@@ -1,1 +1,1 @@
-export { AngularReactMaterialModule } from './src/material.module';
+export { AngularReactSemanticUiModule } from './src/semantic-ui.module';

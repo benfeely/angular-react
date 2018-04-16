@@ -1,7 +1,7 @@
-import { MaterialModule } from './material.module';
+import { SemanticUiModule } from './semantic-ui.module';
 
 describe('MaterialModule', () => {
   it('should work', () => {
-    expect(new MaterialModule()).toBeDefined();
+    expect(new SeanticUiModule()).toBeDefined();
   });
 });
