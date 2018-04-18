@@ -38,11 +38,12 @@
     "update:check": "./node_modules/.bin/nx update check",
     "update:skip": "./node_modules/.bin/nx update skip",
 
-    "publish:core": "npm run build:libs && npm adduser && npm publish ./@angular-react/core --access=public",
-    "publish:fabric": "npm run build:libs && npm adduser && npm publish ./@angular-react/fabric.tgz --access=public",
-    "publish:semantic-ui": "npm run build:libs && npm adduser && npm publish ./@angular-react/semantic-ui.tgz --access=public",
+    "publish:core": "npm run clean:publish && npm run build:libs && npm adduser && npm publish ./@angular-react/core --access=public",
+    "publish:fabric": "npm run clean:publish && npm run build:libs && npm adduser && npm publish ./@angular-react/fabric --access=public",
+    "publish:semantic-ui": "npm run clean:publish && npm run build:libs && npm adduser && npm publish ./@angular-react/semantic-ui --access=public",
 
     "clean:docs": "rimraf docs",
+    "clean:publish": "rimraf @angular-react",
     "e2e": "ng e2e",
     "lint": "./node_modules/.bin/nx lint && ng lint",
     "ng": "ng",
