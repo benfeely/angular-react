@@ -1,9 +1,13 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "@angular-react/core",
-  "version": "0.1.12",
+  "version": "0.1.13-alpha1",
   "ngPackage": {
     "lib": {
+      "languageLevel": [
+        "dom",
+        "es2017"
+      ],
       "entryFile": "public-api.ts",
       "umdModuleIds": {
         "react": "React",

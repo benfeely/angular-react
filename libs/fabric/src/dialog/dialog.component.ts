@@ -3,34 +3,30 @@
 // tslint:disable:no-output-rename
 // tslint:disable:use-host-property-decorator
 
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-} from '@angular/core';
-
-import { IDialogProps, Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/components/Dialog';
-
+import { ReactWrapperComponent } from '@angular-react/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { IDialogContentProps, IDialogFooterProps, IDialogProps } from 'office-ui-fabric-react/lib/components/Dialog';
 
 @Component({
   selector: 'fab-dialog',
   exportAs: 'fabDialog',
   template: `
     <Dialog
+      #reactNode
+      [responsiveMode]="responsiveMode"
+      [elementToFocusOnDismiss]="elementToFocusOnDismiss"
+      [ignoreExternalFocusing]="ignoreExternalFocusing"
+      [forceFocusInsideTrap]="forceFocusInsideTrap"
+      [firstFocusableSelector]="firstFocusableSelector"
+      [closeButtonAriaLabel]="closeButtonAriaLabel"
+      [isClickableOutsideFocusTrap]="isClickableOutsideFocusTrap"
+      [componentRef]="componentRef"
+      [styles]="styles"
+      [theme]="theme"
+      [dialogContentProps]="dialogContentProps"
       [hidden]="hidden"
-      (onDismiss)="onDismiss($event)"
-      [dialogContentProps]="{
-        type: this.type,
-        title: this.title,
-        subText: this.subText
-      }"
-      [modalProps]="{
-        isBlocking: this.isBlocking,
-        containerClassName: this.containerClassName
-      }"
+      [modalProps]="modalProps"
+      (onDismiss)="onDismissHandler($event)"
     >
       <ReactContent><ng-content></ng-content></ReactContent>
     </Dialog>
@@ -39,26 +35,48 @@ import { IDialogProps, Dialog, DialogType, DialogFooter } from 'office-ui-fabric
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'class': 'fab-dialog' }
 })
-export class FabDialogComponent {
+export class FabDialogComponent extends ReactWrapperComponent<IDialogProps> {
+  @ViewChild('reactNode') protected reactNodeRef: ElementRef;
 
-  @Input() hidden = false;
-  @Input() type = DialogType.normal;
-  @Input() title: string;
-  @Input() subText: string;
+  @Input() responsiveMode?: IDialogProps['responsiveMode'];
 
-  @Input() isBlocking = false;
-  @Input() containerClassName = 'ms-dialogMainOverride';
+  @Input() elementToFocusOnDismiss?: IDialogProps['elementToFocusOnDismiss'];
+  @Input() ignoreExternalFocusing?: IDialogProps['ignoreExternalFocusing'];
+  @Input() forceFocusInsideTrap?: IDialogProps['forceFocusInsideTrap'];
+  @Input() firstFocusableSelector?: IDialogProps['firstFocusableSelector'];
+  @Input() closeButtonAriaLabel?: IDialogProps['closeButtonAriaLabel'];
+  @Input() isClickableOutsideFocusTrap?: IDialogProps['isClickableOutsideFocusTrap'];
 
-  @Output('onDismiss') dismiss: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
-  onDismiss = ev => this.dismiss.emit(ev as any);
+  @Input() componentRef?: IDialogProps['componentRef'];
+  @Input() styles?: IDialogProps['styles'];
+  @Input() theme?: IDialogProps['theme'];
+  @Input() dialogContentProps?: IDialogProps['dialogContentProps'];
+  @Input() hidden?: IDialogProps['hidden'];
+  @Input() modalProps?: IDialogProps['modalProps'];
+
+  @Output() readonly onDismiss = new EventEmitter<MouseEvent>();
+
+  constructor(elementRef: ElementRef) {
+    super(elementRef);
+
+    this.onDismissHandler = this.onDismissHandler.bind(this);
+  }
+
+  onDismissHandler(ev: React.MouseEvent<HTMLButtonElement>) {
+    this.onDismiss.emit(ev && ev.nativeEvent);
+  }
 }
-
 
 @Component({
   selector: 'fab-dialog-footer',
   exportAs: 'fabDialogFooter',
   template: `
-    <DialogFooter key="4">
+    <DialogFooter
+      #reactNode
+      [componentRef]="componentRef"
+      [styles]="styles"
+      [theme]="theme"
+      [className]="className">
       <ReactContent><ng-content></ng-content></ReactContent>
     </DialogFooter>
   `,
@@ -66,6 +84,68 @@ export class FabDialogComponent {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'class': 'fab-dialog-footer' }
 })
-export class FabDialogFooterComponent {
+export class FabDialogFooterComponent extends ReactWrapperComponent<IDialogFooterProps> {
+  @ViewChild('reactNode') protected reactNodeRef: ElementRef;
 
+  @Input() componentRef?: IDialogFooterProps['componentRef'];
+  @Input() styles?: IDialogFooterProps['styles'];
+  @Input() theme?: IDialogFooterProps['theme'];
+  @Input() className?: IDialogFooterProps['className'];
+
+  constructor(elementRef: ElementRef) {
+    super(elementRef);
+  }
+}
+
+@Component({
+  selector: 'fab-dialog-content',
+  exportAs: 'fabDialogContent',
+  template: `
+    <DialogContent
+      #reactNode
+      [componentRef]="componentRef"
+      [styles]="styles"
+      [theme]="theme"
+      [isMultiline]="isMultiline"
+      [showCloseButton]="showCloseButton"
+      [topButtonsProps]="topButtonsProps"
+      [className]="className"
+      [subTextId]="subTextId"
+      [subText]="subText"
+      [titleId]="titleId"
+      [title]="title"
+      [responsiveMode]="responsiveMode"
+      [closeButtonAriaLabel]="closeButtonAriaLabel"
+      [type]="type"
+      (onDismiss)="onDismiss.emit($event && $event.nativeEvent)">
+      <ReactContent><ng-content></ng-content></ReactContent>
+    </DialogContent>
+  `,
+  styles: ['react-renderer'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'class': 'fab-dialog-content' }
+})
+export class FabDialogContentComponent extends ReactWrapperComponent<IDialogContentProps> {
+  @ViewChild('reactNode') protected reactNodeRef: ElementRef;
+
+  @Input() componentRef?: IDialogContentProps['componentRef'];
+  @Input() styles?: IDialogContentProps['styles'];
+  @Input() theme?: IDialogContentProps['theme'];
+  @Input() isMultiline?: IDialogContentProps['isMultiline'];
+  @Input() showCloseButton?: IDialogContentProps['showCloseButton'];
+  @Input() topButtonsProps?: IDialogContentProps['topButtonsProps'];
+  @Input() className?: IDialogContentProps['className'];
+  @Input() subTextId?: IDialogContentProps['subTextId'];
+  @Input() subText?: IDialogContentProps['subText'];
+  @Input() titleId?: IDialogContentProps['titleId'];
+  @Input() title?: IDialogContentProps['title'];
+  @Input() responsiveMode?: IDialogContentProps['responsiveMode'];
+  @Input() closeButtonAriaLabel?: IDialogContentProps['closeButtonAriaLabel'];
+  @Input() type?: IDialogContentProps['type'];
+
+  @Output() readonly onDismiss = new EventEmitter<MouseEvent>();
+
+  constructor(elementRef: ElementRef) {
+    super(elementRef);
+  }
 }

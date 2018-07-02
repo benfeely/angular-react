@@ -1,11 +1,10 @@
+/// <reference path="../types/StringMap.d.ts" />
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Renderer2 } from '@angular/core';
-
-import { ReactComponentClass, getComponentClass } from "./registry";
-import { AngularReactRendererFactory } from "./renderer";
+import removeUndefinedProperties from '../utils/object/remove-undefined-properties';
 import { CHILDREN_TO_APPEND_PROP } from './react-content';
-
+import { getComponentClass, ReactComponentClass } from "./registry";
 
 const DEBUG = false;
 
@@ -14,7 +13,7 @@ export function isReactNode(node: any): node is ReactNode {
 }
 
 export class ReactNode {
-  // Access to these properties are restriced through setters and functions
+  // Access to these properties are restricted through setters and functions
   // so that the dirty "render pending" state of this object can be properly
   // tracked and all nodes with "render pending" can be flushed at the end
   // of render operation.
@@ -85,12 +84,24 @@ export class ReactNode {
   }
 
   setAttribute(name: string, value: any) {
-    this.setProperty(name, value);
+    this.setAttributes({
+      [name]: value
+    });
+  }
+
+  setAttributes(attributes: StringMap) {
+    this.setProperties(attributes);
   }
 
   setProperty(name: string, value: any) {
+    this.setProperties({
+      [name]: value
+    });
+  }
+
+  setProperties(properties: StringMap) {
     this.setRenderPending();
-    this.props[name] = value;
+    Object.assign(this.props, properties);
   }
 
   removeProperty(name: string, childName?: string) {
@@ -151,7 +162,7 @@ export class ReactNode {
 
       if (this.isRenderPending) {
         if (DEBUG) { console.log('ReactNode > render > node:', this.toString(), 'parent:', this.parent); }
-        // It is expected that the element will be recreated and rerendered with each attribute change.
+        // It is expected that the element will be recreated and re-rendered with each attribute change.
         // See: https://reactjs.org/docs/rendering-elements.html
         ReactDOM.render(this.renderRecursive() as any, this._parent);
         this.isRenderPending = false;
@@ -161,11 +172,11 @@ export class ReactNode {
     return this;
   }
 
-  private renderRecursive(): React.ReactElement<{}> | string {
-    let children = [];
-    if (this.children) {
-      children = this.children.map(child => child.renderRecursive());
-    }
+  private renderRecursive(key?: string): React.ReactElement<{}> | string {
+    const children =
+      this.children
+        ? this.children.map((child, index) => child.renderRecursive(index.toString()))
+        : [];
 
     if (this.text) {
       return this.text;
@@ -173,8 +184,38 @@ export class ReactNode {
 
     this.props[CHILDREN_TO_APPEND_PROP] = this.childrenToAppend;
 
+    if (key) this.props['key'] = key;
+
+    const clearedProps = this.transformProps(
+      removeUndefinedProperties(this.props)
+    );
+
     if (DEBUG) { console.warn('ReactNode > renderRecursive > type:', this.toString(), 'props:', this.props, 'children:', children); }
-    return React.createElement(this.type, this.props, children);
+    return React.createElement(this.type, clearedProps, children.length > 0 ? children : undefined);
+  }
+
+  private transformProps(props: object) {
+    return Object.entries(props).reduce((acc, [key, value]) => {
+      const [transformKey, transformValue] = this.transformProp(key, value);
+      return {
+        ...acc,
+        [transformKey]: transformValue,
+      };
+    }, {});
+  }
+
+  private transformProp<TValue = any>(name: string, value: TValue): [string, TValue] {
+    // prop name is camelCased already
+    const firstLetter = name[0];
+    if (firstLetter === firstLetter.toLowerCase()) {
+      return [name, value];
+    }
+
+    // prop name is PascalCased & is a function - assuming render prop or callback prop that has return value
+    // NOTE: Angular doesn't allow passing these prefixed with "on", and @Output EventEmitters don't have return value.
+    if (typeof value === 'function') {
+      return [`on${name}`, value];
+    }
   }
 
   // This is called by Angular core when projected content is being added.
