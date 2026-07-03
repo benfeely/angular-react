@@ -1,5 +1,13 @@
 # React support for Angular
 
+> ### 📦 Legacy project — archived
+>
+> This library was originally built here in **2018** to render React components — notably [Office UI Fabric](https://developer.microsoft.com/en-us/fabric) — inside Angular applications. It was later **forked and carried forward under Microsoft Open Source** at **[microsoft/angular-react](https://github.com/microsoft/angular-react)**, which has since also been archived (read-only).
+>
+> Both repositories are preserved for historical reference and are **no longer maintained**. The published `@angular-react/*` npm packages reflect that era. If you're looking for the most complete lineage of this work, see the [Microsoft fork](https://github.com/microsoft/angular-react).
+
+---
+
 [![npm version](https://badge.fury.io/js/%40angular-react%2Fcore.svg)](https://www.npmjs.com/package/@angular-react/core)
 
 Industry trends, organizational pressures, and other factors can lead to mandates regarding the use of component libraries or migration from one technology to another.  In the case of [Office UI Fabric][fab], where its use is required, the client must be written in React (there is no Angular component library for the latest version).  Rewrite from Angular to React may be cost-prohibitive or ill advised for other reasons.  
